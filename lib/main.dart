@@ -75,10 +75,11 @@ class WeatherHomePageState extends State<WeatherHomePage> {
             context,
             MaterialPageRoute(builder: (context) => LocationSelectionPage()),
           );
-          if (newLocation != null) {
-            setState(() {
-              _location = newLocation;
-            });
+          if (newLocation.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Please enter a location'),
+            ));
+          } else {
             fetchWeatherData(newLocation);
           }
         },
